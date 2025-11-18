@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Lab P4 - AM and FM Sinusoidal Signals</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2025-11-18">
+<meta name="DC.source" content="P4_AMFM_Sinusoid_Signals.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Lab P4 - AM and FM Sinusoidal Signals</h1>
+<!--introduction-->
+<p>Chirps and Beats The following code completes the lab exercises found in <a href="https://dspfirst.gatech.edu/chapters/03spect/labs/AMFMSignalsLab/AMFMSignalsLab.pdf">https://dspfirst.gatech.edu/chapters/03spect/labs/AMFMSignalsLab/AMFMSignalsLab.pdf</a>
+</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">4.1 - Beat Notes</a>
+</li>
+<li>
+<a href="#2">4.2 - More on Spectrograms</a>
+</li>
+<li>
+<a href="#3">4.3 - Spectrogram of a Chirp</a>
+</li>
+</ul>
+</div>
+<h2 id="1">4.1 - Beat Notes</h2>
+<p>Beat notes are the sum of two sinusoidal signals of slightly different frequency.</p>
+<p>
+<img src="P4_AMFM_Sinusoid_Signals_eq08739635372807040513.png" alt="$$x(t) = Acos(2{\pi}(f_c - f{\Delta})t) + Bcos(2{\pi}(f_c + f{\Delta})t)$$" style="width:316px;height:15px;"></p>
+<p>The following code generates a beat using the function <i>beat.m</i>, displays a segment of the signal, and plays the sound.</p>
+<p>The resulting wave form has two signals: A lower frequency envelope signal and a higher frequency signal underneath the envelope. The period of the envelope is <img src="P4_AMFM_Sinusoid_Signals_eq13063969333903341589.png" alt="$t_{envelope} {\approx} 0.07 - 0.02 = 0.05s$" style="width:179px;height:15px;">. Which is approximately 20Hz The period of the higher frequency component is <img src="P4_AMFM_Sinusoid_Signals_eq14399091726844381127.png" alt="$t_{underneath} {\approx} 0.164 - 0.163 = 0.001s$" style="width:215px;height:13px;">. Which is approximately 1000Hz This matches the input parameters <img src="P4_AMFM_Sinusoid_Signals_eq02077858997257634113.png" alt="${f_c} = 1000Hz$" style="width:81px;height:14px;"> and <img src="P4_AMFM_Sinusoid_Signals_eq04162152374483547276.png" alt="${f\Delta} = 10Hz$" style="width:75px;height:14px;"> which is half of the frequency difference.</p>
+<pre class="codeinput">
+<span class="comment">% Generate a beat</span>
+A = 10; B = 10; fc = 1000; delf = 10; fsamp = 11025; dur = 1;
+[x, t] = beat(A, B,fc, delf, fsamp, dur);
+
+<span class="comment">% Display the first 0.2 seconds of the signal</span>
+idx = find(t == 0.2);
+figure();
+fig1 = plot(t(1:idx), x(1:idx));
+xlabel(<span class="string">"t [s]"</span>);
+title(<span class="string">"Beat Signal"</span>);
+<span class="comment">% Show data tips for frequency measurements</span>
+datatip(fig1, 0.0243084, -0.311649);
+datatip(fig1, 0.0746485, 0.262887);
+datatip(fig1, 0.162993, -13.6847);
+datatip(fig1, 0.163991, -12.7365, <span class="string">'Location'</span>, <span class="string">'southeast'</span>);
+
+
+<span class="comment">% Play the sound and save it</span>
+sound(x, fsamp);
+audiowrite(<span class="string">"beat1.wav"</span>, x/max(x), fsamp); <span class="comment">% Scale values between [-1, 1]</span>
+</pre>
+<img vspace="5" hspace="5" src="P4_AMFM_Sinusoid_Signals_01.png" alt=""> <h2 id="2">4.2 - More on Spectrograms</h2>
+<p>In a beat signal, if the magnitude of the two component signals is the same, <img src="P4_AMFM_Sinusoid_Signals_eq15337422519477900076.png" alt="$A=B$" style="width:42px;height:11px;">, then the beat signal becomes</p>
+<p>
+<img src="P4_AMFM_Sinusoid_Signals_eq08543675902558682838.png" alt="$$x(t) = A[cos(2{\pi}(f{\Delta})t)]cos(2{\pi}(f_ct))$$" style="width:225px;height:15px;"></p>
+<p>This more clearly shows that the amplitude of the signal varies with time.</p>
+<p>The following generates a beat signal using the above equation and then shows two spectrograms with window length 2048 and 16.</p>
+<p>The results of spectrogram with the larger window length shows two high intensity bands straddling 2000Hz, which corresponds with the base signal <img src="P4_AMFM_Sinusoid_Signals_eq10912891890976114823.png" alt="${f_c} = 2000Hz$" style="width:81px;height:14px;"> and <img src="P4_AMFM_Sinusoid_Signals_eq08537167191894376005.png" alt="${\Delta}f=32Hz$" style="width:75px;height:14px;">. The smaller window length shows similar resuls, however there is much less resolution on the correct frequency bands, resulting in a thick black band covering a large region around 2000 Hz</p>
+<pre class="codeinput">
+<span class="comment">% a) - Create and plot the beat signal</span>
+delf = 32;
+dur = 0.26;
+fsamp = 11025;
+fc = 2000;
+A = 1;
+B = A;
+[x, t] = beat(A, B,fc, delf, fsamp, dur);
+
+<span class="comment">% Plot the full signal</span>
+figure();
+plot(t, x);
+xlabel(<span class="string">"t [s]"</span>);
+title(<span class="string">"Beat Signal"</span>);
+
+<span class="comment">% Play the sound and save it</span>
+sound(x, fsamp);
+audiowrite(<span class="string">"beat2.wav"</span>, x/max(x), fsamp); <span class="comment">% Scale values between [-1, 1]</span>
+
+<span class="comment">% b) - Find the spectrogram using a window length of 2048</span>
+figure()
+subplot(1, 2, 1)
+spectrogram(x, 2048, [], 2048, fsamp); colormap(1-gray(256));
+
+<span class="comment">% c) - Find the spectrogram using a window length of 16</span>
+subplot(1, 2, 2)
+spectrogram(x, 16, [], 16, fsamp); colormap(1-gray(256));
+</pre>
+<img vspace="5" hspace="5" src="P4_AMFM_Sinusoid_Signals_02.png" alt=""> <img vspace="5" hspace="5" src="P4_AMFM_Sinusoid_Signals_03.png" alt=""> <h2 id="3">4.3 - Spectrogram of a Chirp</h2>
+<p>Chirp signals are a linear sweep of a frequency range. The signal is defined as <img src="P4_AMFM_Sinusoid_Signals_eq16044258125788391600.png" alt="$x(t) = Acos(2{\psi(t))} $" style="width:120px;height:15px;"></p>
+<p>Where,</p>
+<p>
+<img src="P4_AMFM_Sinusoid_Signals_eq04145887394252823578.png" alt="$${\psi}(t) = 2{\pi}{\mu}t^2 + 2{\pi}{f_0}t+{\phi}$$" style="width:161px;height:17px;"></p>
+<p>
+<img src="P4_AMFM_Sinusoid_Signals_eq14908642387792555072.png" alt="${\mu}$" style="width:9px;height:10px;"> is the slope of the frequency sweep.</p>
+<p>
+<img src="P4_AMFM_Sinusoid_Signals_eq04608090398809369069.png" alt="${f_0}$" style="width:12px;height:14px;"> is the starting frequency.</p>
+<p>
+<img src="P4_AMFM_Sinusoid_Signals_eq16699386198321574503.png" alt="${\phi}$" style="width:8px;height:14px;"> is a shift that we set to zero.</p>
+<p>A chirp with a starting frequency of <img src="P4_AMFM_Sinusoid_Signals_eq13226919833644645931.png" alt="${f_0} = 5000Hz$" style="width:82px;height:14px;"> and <img src="P4_AMFM_Sinusoid_Signals_eq13258716653794844654.png" alt="$f_{end} = 300Hz$" style="width:86px;height:14px;"> is generated with the function <i>mychirp.m</i>, and the spectrogram is plotted. The spectrogram does show a zigzag between 5000Hz and 300Hz</p>
+<pre class="codeinput">
+<span class="comment">% Generate the chirp</span>
+dur = 3;
+fsamp = 11025;
+f1 = 5000;
+f2 = 300;
+[x, t] = mychirp(f1, f2, dur, fsamp);
+
+<span class="comment">% Plot the signal</span>
+figure();
+plot(t, x);
+xlabel(<span class="string">"t [s]"</span>);
+title(<span class="string">"Chirp Signal"</span>);
+
+<span class="comment">% Save the signal (audio is played inside the function)</span>
+audiowrite(<span class="string">"chrip.wav"</span>, x/max(x), fsamp); <span class="comment">% Scale values between [-1, 1]</span>
+
+<span class="comment">% Plot the spectrogram</span>
+figure();
+spectrogram(x, 2048, [], 2048, fsamp); colormap(1-gray(256));
+</pre>
+<img vspace="5" hspace="5" src="P4_AMFM_Sinusoid_Signals_04.png" alt=""> <img vspace="5" hspace="5" src="P4_AMFM_Sinusoid_Signals_05.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Lab P4 - AM and FM Sinusoidal Signals
+% Chirps and Beats
+% The following code completes the lab exercises found in <https://dspfirst.gatech.edu/chapters/03spect/labs/AMFMSignalsLab/AMFMSignalsLab.pdf> 
+
+
+%% 4.1 - Beat Notes
+% Beat notes are the sum of two sinusoidal signals of slightly different
+% frequency.
+% 
+% $$x(t) = Acos(2{\pi}(f_c - f{\Delta})t) + Bcos(2{\pi}(f_c + f{\Delta})t)$$
+% 
+% The following code generates a beat using the function _beat.m_, displays
+% a segment of the signal, and plays the sound.
+%
+% The resulting wave form has two signals: A lower frequency envelope
+% signal and a higher frequency signal underneath the envelope. The period
+% of the envelope is 
+% $t_{envelope} {\approx} 0.07 - 0.02 = 0.05s$. Which is approximately 20Hz 
+% The period of the higher frequency component is
+% $t_{underneath} {\approx} 0.164 - 0.163 = 0.001s$. Which is approximately 1000Hz
+% This matches the input parameters ${f_c} = 1000Hz$ and ${f\Delta} = 10Hz$
+% which is half of the frequency difference.
+
+% Generate a beat
+A = 10; B = 10; fc = 1000; delf = 10; fsamp = 11025; dur = 1;
+[x, t] = beat(A, B,fc, delf, fsamp, dur);
+
+% Display the first 0.2 seconds of the signal
+idx = find(t == 0.2);
+figure();
+fig1 = plot(t(1:idx), x(1:idx));
+xlabel("t [s]");
+title("Beat Signal");
+% Show data tips for frequency measurements
+datatip(fig1, 0.0243084, -0.311649);
+datatip(fig1, 0.0746485, 0.262887);
+datatip(fig1, 0.162993, -13.6847);
+datatip(fig1, 0.163991, -12.7365, 'Location', 'southeast');
+
+
+% Play the sound and save it
+sound(x, fsamp);
+audiowrite("beat1.wav", x/max(x), fsamp); % Scale values between [-1, 1]
+
+%% 4.2 - More on Spectrograms
+% In a beat signal, if the magnitude of the two component signals is the
+% same, $A=B$, then the beat signal becomes
+%
+% $$x(t) = A[cos(2{\pi}(f{\Delta})t)]cos(2{\pi}(f_ct))$$
+% 
+% This more clearly shows that the amplitude of the signal varies with
+% time.
+%
+% The following generates a beat signal using the above equation and then
+% shows two spectrograms with window length 2048 and 16.
+%
+% The results of spectrogram with the larger window length shows two high
+% intensity bands straddling 2000Hz, which corresponds with the base signal
+% ${f_c} = 2000Hz$ and ${\Delta}f=32Hz$. The smaller window length shows
+% similar resuls, however there is much less resolution on the correct
+% frequency bands, resulting in a thick black band covering a large region
+% around 2000 Hz
+
+% a) - Create and plot the beat signal
+delf = 32;
+dur = 0.26;
+fsamp = 11025;
+fc = 2000;
+A = 1;
+B = A;
+[x, t] = beat(A, B,fc, delf, fsamp, dur);
+
+% Plot the full signal
+figure();
+plot(t, x);
+xlabel("t [s]");
+title("Beat Signal");
+
+% Play the sound and save it
+sound(x, fsamp);
+audiowrite("beat2.wav", x/max(x), fsamp); % Scale values between [-1, 1]
+
+% b) - Find the spectrogram using a window length of 2048
+figure()
+subplot(1, 2, 1)
+spectrogram(x, 2048, [], 2048, fsamp); colormap(1-gray(256));
+
+% c) - Find the spectrogram using a window length of 16
+subplot(1, 2, 2)
+spectrogram(x, 16, [], 16, fsamp); colormap(1-gray(256));
+
+%% 4.3 - Spectrogram of a Chirp
+% Chirp signals are a linear sweep of a frequency range. The signal is
+% defined as 
+% $$x(t) = Acos(2{\psi(t))} $$
+%
+% Where,
+%
+% $${\psi}(t) = 2{\pi}{\mu}t^2 + 2{\pi}{f_0}t+{\phi}$$
+%
+% ${\mu}$ is the slope of the frequency sweep.
+%
+% ${f_0}$ is the starting frequency.
+%
+% ${\phi}$ is a shift that we set to zero.
+%
+% A chirp with a starting frequency of ${f_0} = 5000Hz$ and $f_{end} = 300Hz$ 
+% is generated with the function _mychirp.m_, and the spectrogram
+% is plotted. The spectrogram does show a zigzag between 5000Hz and 300Hz
+
+% Generate the chirp
+dur = 3;
+fsamp = 11025;
+f1 = 5000;
+f2 = 300;
+[x, t] = mychirp(f1, f2, dur, fsamp);
+
+% Plot the signal
+figure();
+plot(t, x);
+xlabel("t [s]");
+title("Chirp Signal");
+
+% Save the signal (audio is played inside the function)
+audiowrite("chrip.wav", x/max(x), fsamp); % Scale values between [-1, 1]
+
+% Plot the spectrogram
+figure();
+spectrogram(x, 2048, [], 2048, fsamp); colormap(1-gray(256));
+##### SOURCE END #####
+-->
+</body>
+</html>
