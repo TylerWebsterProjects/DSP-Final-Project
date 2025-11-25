@@ -1,3 +1,15 @@
+%% FM Synthesis for Musical Instruments - Bells and Clarinets: Lab P7 - Exercise 4
+
+%% 4.1) Generating the Bell Envelopes
+
+%% 4.2) Parameters for the Bell
+
+%% 4.3) The Bell Sound
+
+%% 4.4) Comments about the bell
+
+%% Helper Function Declarations
+
 function FM_Synth_4()
 
 cases = [110, 220, 10,  2, 6, 11025;
