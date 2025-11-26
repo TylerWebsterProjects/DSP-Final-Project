@@ -9,6 +9,23 @@
 % FIXME: Sierra, contribute what you'd like here
 
 %% 4.3) The Bell Sound
+% FIXME: Intending to add more cases in the future for extra credit. For
+% now, choose case 1 and case 5.
+% Two of the six cases presented in the table of section 4.3 are analyzed.
+
+%% 4.3a) - Listening to Sounds of the Bell
+%% 4.3a) -> Case 1:
+% This bell tone has a very deep and long droning sound, with what feels
+% like slow beat tone/reverberation.
+
+FM_Synth_4(1);
+
+%% 4.3a) -> Case 5:
+% This tone feels similar to case one in terms of depth and long droning
+% sound, but has a characteristically different initial tone, sounding more
+% like a bell you would hear ring in a church or city to tell time.
+
+FM_Synth_4(5);
 
 %% 4.4) Comments about the bell
 
