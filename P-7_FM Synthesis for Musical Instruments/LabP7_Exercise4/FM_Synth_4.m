@@ -2,7 +2,7 @@ function out = FM_Synth_4(casenum, verbose, nosound)
     %FM_SYNTH_4 plays a bell sound according to the case number of the
     % table in 4.3. Uses soundsc function.
     %
-    %   usage: FM_Synth_4(casenum, verbose)
+    %   usage: FM_Synth_4(casenum, verbose, nosound)
     %
     %   where: casenum = integer between 1 and 6
     %          verbose = boolean, optional argument if you want case info

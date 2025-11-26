@@ -31,6 +31,8 @@ FM_Synth_4(5);
 %% 4.3b) -> Case 1:
 % FIXME: need to figure out appropriate equation/analytical tactic for
 % finding fundamental frequency
+% FIXME: Adding a useless statement to try invoking autosave gitignore
+% functionality
 
 output = FM_Synth_4(1,true, true);
 
