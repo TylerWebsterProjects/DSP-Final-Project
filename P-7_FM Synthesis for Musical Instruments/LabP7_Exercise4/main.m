@@ -73,6 +73,7 @@ pause;
 soundsc(150*cos(2*pi*fund_5.*(0:(1/11025):5)), 11025) %FIXIT this was working on my version and it's SO quiet here?? I'm confused
 pause;
 
+%% 4.3c) - Plotting Instantaneous Frequencies
 %% 4.3c) -> Case 1
 % I(t) is the modulation index envelope, and it has the same form as A(t)
 % except that the amplitude is determined by Io. When you increase Io, the
@@ -103,6 +104,7 @@ fi = fc - It.*fm.*sin(2*pi*fm.*t - pi/2) - (Io/tau).*exp(-t./tau).*cos(2*pi*fm.*
 subplot(1,2,2); plot(t, fi); xlabel("Time"); ylabel("f_{i}(t)"); title("Case 5")
 sgtitle("Instantaneous Frequency (Cases 1 and 5)")
 
+%% 4.3d) - Visual Representation (Spectrograms)
 %% 4.3d) -> Case 1 Spectrogram
 % We already calculated the fundamental frequency (by the process given in
 % the lab) to be 110, but from the spectrogram you can see that the
@@ -122,6 +124,7 @@ subplot(1,2,1); spectrogram(bell([110,220], 10, 2, 6, 11025)); xlabel("Time"); y
 subplot(1,2,2); spectrogram(bell([250,350], 5, 2, 5, 11025)); xlabel("Time"); ylabel("Frequency");ylim([3063,5*10^4]); colorbar; c = colorbar; c.Label.String = 'Power/Amplitude (dB/Hz)'; clim([-80,-30]);title("Case 5")
 sgtitle("Bell Spectrograms (Cases 1 and 5)")
 
+%% 4.3e) - Signal/Envelope Comparison
 %% 4.3e) -> Case 1
 % This point is actually just a comparison of what we graphed in 4.1 and
 % 4.2, so in the code we'll just refer to figures 1 and 2 to talk about
@@ -139,6 +142,7 @@ sgtitle("Bell Spectrograms (Cases 1 and 5)")
 % and other components contained in the bell sound beyond the fundamental
 % frequency.
 
+%% 4.3f) - Signal Makeup
 %% 4.3f) -> Case 1
 % Here we will graph about 200 samples in the middle of the signal and
 % discuss. I mentioned this slightly in 4.3e) Case 5, but we'll get to see
