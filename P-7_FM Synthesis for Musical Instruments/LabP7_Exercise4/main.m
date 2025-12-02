@@ -60,7 +60,7 @@ pause;
 fund_1 = gcd(110,220) % no semicolon so the result can show
 FM_Synth_4(1)
 pause;
-soundsc(150*cos(2*pi*fund_1.*(0:(1/11025):5)), 11025)
+soundsc(cos(2*pi*fund_1.*(0:(1/11025):5)), 11025)
 pause;
 
 %% 4.3b) -> Case 5: |fc,  fm,  Io, tau, dur, fs   |
@@ -70,7 +70,14 @@ pause;
 fund_5 = gcd(250, 350)
 FM_Synth_4(5)
 pause;
-soundsc(150*cos(2*pi*fund_5.*(0:(1/11025):5)), 11025) %FIXIT this was working on my version and it's SO quiet here?? I'm confused
+% The sound below sounds quiet for multiple possible reasons. One, human
+% hearing is less sensitive to very low and very high frequencies. 50 Hz is
+% probably on the lower edge. The second, and probably the more relevant
+% reason, is that the audio equipment (headphones, earbuds, speakers) being
+% used may not be tuned/designed to produce large amounts of power at these
+% low frequencies, prefering mid-range sounds. Check out speaker frequency
+% response if you're curious for more!
+soundsc(cos(2*pi*fund_5.*(0:(1/11025):5)), 11025)
 pause;
 
 %% 4.3c) - Plotting Instantaneous Frequencies
@@ -111,7 +118,26 @@ sgtitle("Instantaneous Frequency (Cases 1 and 5)")
 % frequencies are strongest at the start and fall off over time, just like
 % the instantaneous frequency. See case 5 for comparisons
 figure(4)
-subplot(1,2,1); spectrogram(bell([110,220], 10, 2, 6, 11025)); xlabel("Time"); ylabel("Frequency"); ylim([3675,5*10^4]); colorbar; c = colorbar; c.Label.String = 'Power/Amplitude (dB/Hz)'; clim([-80,-30]);title("Case 1")
+% ASIDE: Wrestled with the spectrogram function, took a while to get a feel
+% for the time-frequency resolution uncertainty, but I found that a window
+% size of 400 does a decent job of showing the harmonic behavior over time,
+% while preserving the harmonic resolution. Note, to switch from samples
+% and normalized frequency, I needed to specify the sample rate.
+subplot(1,2,1); spectrogram(bell([110,220], 10, 2, 6, 11025), 400, [],[], fs); 
+title("Case 1")
+% (Clean-ish) Harmonics!
+% Interestingly, harmonics seem to be driven by integer multiples of the
+% modulation frequency being added/subtracted from the carrier frequency.
+% I only found this out when observing case 5, but found it worked for case
+% 1 as well, except that case 1 has repeated harmonics due to the
+% modulation frequency being an integer multiple of the carrier frequency.
+% Extremely cool!
+xline(abs(110 - 1*220)/1000, '-', "|f_c - 1*f_m| = 110 Hz")
+xline(abs(110 + 0*220)/1000, '-', "|f_c +/- 0*f_m| = 110 Hz")
+xline(abs(110 - 2*220)/1000, '-', "|f_c - 2*f| = 330 Hz")
+xline(abs(110 + 1*220)/1000, '-', "|f_c + 1*f_m| = 330 Hz")
+xline(abs(110 - 3*220)/1000, '-', "|f_c - 3*f_m| = 550 Hz")
+xline(abs(110 + 2*220)/1000, '-', "|f_c + 2*f_m| = 550 Hz")
 
 %% 4.3d) -> Case 5 Spectrogram
 % We already calculated the fundamental frequency (by the process given in
@@ -121,7 +147,17 @@ subplot(1,2,1); spectrogram(bell([110,220], 10, 2, 6, 11025)); xlabel("Time"); y
 % You can see that around the fundamental frequencies the tones are the
 % strongest, which holds with our idea that it would "sound" right to
 % compare the fundamental frequency to the overall sound.
-subplot(1,2,2); spectrogram(bell([250,350], 5, 2, 5, 11025)); xlabel("Time"); ylabel("Frequency");ylim([3063,5*10^4]); colorbar; c = colorbar; c.Label.String = 'Power/Amplitude (dB/Hz)'; clim([-80,-30]);title("Case 5")
+subplot(1,2,2); spectrogram(bell([250,350], 5, 2, 5, 11025), 400, [], [], fs);
+title("Case 5")
+% Modulation harmonics that start at the difference between carrier and modulation
+% frequency, as well as modulation harmonics starting at the carrier
+% frequency
+xline(abs(250 - 1*350)/1000, '-', "|f_c - 1*f_m| = 100 Hz")
+xline(abs(250 + 0*350)/1000, '-', "|f_c +/- 0*f_m| = 250 Hz")
+xline(abs(250 - 2*350)/1000, '-', "|f_c - 2*f| = 450 Hz")
+xline(abs(250 + 1*350)/1000, '-', "|f_c + 1*f_m| = 600 Hz")
+xline(abs(250 - 3*350)/1000, '-', "|f_c - 3*f_m| = 800 Hz")
+xline(abs(250 + 2*350)/1000, '-', "|f_c + 2*f_m| = 950 Hz")
 sgtitle("Bell Spectrograms (Cases 1 and 5)")
 
 %% 4.3e) - Signal/Envelope Comparison
