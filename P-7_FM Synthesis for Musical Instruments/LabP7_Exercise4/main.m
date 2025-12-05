@@ -126,18 +126,16 @@ figure(4)
 subplot(1,2,1); spectrogram(bell([110,220], 10, 2, 6, 11025), 400, [],[], fs); 
 title("Case 1")
 % (Clean-ish) Harmonics!
-% Interestingly, harmonics seem to be driven by integer multiples of the
-% modulation frequency being added/subtracted from the carrier frequency.
-% I only found this out when observing case 5, but found it worked for case
-% 1 as well, except that case 1 has repeated harmonics due to the
-% modulation frequency being an integer multiple of the carrier frequency.
+% Interestingly, harmonics seem to be driven by the magnitude of the
+% difference between the carrier frequency and positive and negative
+% integer multiples of the modulation frequency.
 % Extremely cool!
-xline(abs(110 - 1*220)/1000, '-', "|f_c - 1*f_m| = 110 Hz")
-xline(abs(110 + 0*220)/1000, '-', "|f_c +/- 0*f_m| = 110 Hz")
-xline(abs(110 - 2*220)/1000, '-', "|f_c - 2*f| = 330 Hz")
-xline(abs(110 + 1*220)/1000, '-', "|f_c + 1*f_m| = 330 Hz")
-xline(abs(110 - 3*220)/1000, '-', "|f_c - 3*f_m| = 550 Hz")
-xline(abs(110 + 2*220)/1000, '-', "|f_c + 2*f_m| = 550 Hz")
+xline(abs(110 - 1*220)/1000, '-', "|f_c - (+1)*f_m| = 110 Hz")
+xline(abs(110 + 0*220)/1000, '-', "|f_c - (0)*f_m| = 110 Hz")
+xline(abs(110 - 2*220)/1000, '-', "|f_c - (+2)*f_m| = 330 Hz")
+xline(abs(110 + 1*220)/1000, '-', "|f_c - (-1)*f_m| = 330 Hz")
+xline(abs(110 - 3*220)/1000, '-', "|f_c - (+3)*f_m| = 550 Hz")
+xline(abs(110 + 2*220)/1000, '-', "|f_c - (-2)*f_m| = 550 Hz")
 
 %% 4.3d) -> Case 5 Spectrogram
 % We already calculated the fundamental frequency (by the process given in
@@ -149,15 +147,12 @@ xline(abs(110 + 2*220)/1000, '-', "|f_c + 2*f_m| = 550 Hz")
 % compare the fundamental frequency to the overall sound.
 subplot(1,2,2); spectrogram(bell([250,350], 5, 2, 5, 11025), 400, [], [], fs);
 title("Case 5")
-% Modulation harmonics that start at the difference between carrier and modulation
-% frequency, as well as modulation harmonics starting at the carrier
-% frequency
-xline(abs(250 - 1*350)/1000, '-', "|f_c - 1*f_m| = 100 Hz")
-xline(abs(250 + 0*350)/1000, '-', "|f_c +/- 0*f_m| = 250 Hz")
-xline(abs(250 - 2*350)/1000, '-', "|f_c - 2*f| = 450 Hz")
-xline(abs(250 + 1*350)/1000, '-', "|f_c + 1*f_m| = 600 Hz")
-xline(abs(250 - 3*350)/1000, '-', "|f_c - 3*f_m| = 800 Hz")
-xline(abs(250 + 2*350)/1000, '-', "|f_c + 2*f_m| = 950 Hz")
+xline(abs(250 - 1*350)/1000, '-', "|f_c - (+1)*f_m| = 100 Hz")
+xline(abs(250 + 0*350)/1000, '-', "|f_c - (0)*f_m| = 250 Hz")
+xline(abs(250 - 2*350)/1000, '-', "|f_c - (+2)*f| = 450 Hz")
+xline(abs(250 + 1*350)/1000, '-', "|f_c - (-1)*f_m| = 600 Hz")
+xline(abs(250 - 3*350)/1000, '-', "|f_c - (+3)*f_m| = 800 Hz")
+xline(abs(250 + 2*350)/1000, '-', "|f_c - (-2)*f_m| = 950 Hz")
 sgtitle("Bell Spectrograms (Cases 1 and 5)")
 
 %% 4.3e) - Signal/Envelope Comparison
